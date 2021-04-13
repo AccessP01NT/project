@@ -22,6 +22,7 @@ pipeline {
             }
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'cd Agile_inv'
                     sh 'python manage.py makemigrations'
                     sh 'python manage.py migrate'
                 }
@@ -34,6 +35,7 @@ pipeline {
                 }
             }
             steps {
+                    sh 'cd Agile_inv'
                     sh 'python manage.py test'
                     
                 }
@@ -45,6 +47,7 @@ pipeline {
                 }
             }
             steps {
+                    sh 'cd Agile_inv'
                     sh 'pip install django-silk'
                     sh 'python manage.py collectstatic'
                     
