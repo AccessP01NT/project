@@ -38,18 +38,7 @@ pipeline {
                     
                 }
             }
-        stage('load') {
-            agent {
-                docker {
-                    image 'python:3.9'
-                }
-            }
-            steps {
-                    sh 'pip install django-silk'
-                    sh 'python manage.py collectstatic'
-                    
-                }
-            }
+       
         }
     }
 
