@@ -1,0 +1,55 @@
+pipeline {
+    agent none
+    stages {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'python:3.9'
+                }
+            }
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'python -m pip install -r requirements.txt'
+                    sh 'python -m py_compile manage.py'
+                }
+            }
+        }
+        stage('Migrate') {
+            agent {
+                docker {
+                    image 'python:3.9'
+                }
+            }
+            steps{
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'python manage.py makemigrations'
+                    sh 'python manage.py migrate'
+                }
+            }
+        }
+        stage('test') {
+            agent {
+                docker {
+                    image 'python:3.9'
+                }
+            }
+            steps {
+                    sh 'python manage.py test'
+                    
+                }
+            }
+        stage('load') {
+            agent {
+                docker {
+                    image 'python:3.9'
+                }
+            }
+            steps {
+                    sh 'pip install django-silk'
+                    sh 'python manage.py collectstatic'
+                    
+                }
+            }
+        }
+    }
+
