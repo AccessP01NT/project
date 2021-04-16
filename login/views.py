@@ -3,8 +3,13 @@ from django.http import HttpResponse
 from login.models import User
 new_user=None
 def homePage(request):
-    return render(request,'loginPage/login.html',{}) 
+    return render(request,'loginPage/login.html',{})
     
+def adminpage():
+ assert isinstance(request,HttpRequest)     
+ List_user=tutor.objects.all()
+ return render(request,'login/users/admin.html'  ,{'List_user':List_user}) 
+
 def submit_login(request):
     # כפתור התחברות אחרי שהכנסנו נתונים
     userName=request.POST.get('username', None)
