@@ -1,0 +1,7 @@
+cd venv/scripts 
+activate 
+cd ../ 
+cd ../
+cd agile_inv 
+python manage.py runserver 
+
